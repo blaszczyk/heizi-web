@@ -8,16 +8,34 @@ function requestLatest() {
     Accept : 'application/json',
 	success: onLatest
   });
-};
+}
+
+function f00(value) {
+	return ("0" + value).slice(-2)
+}
+
 
 function onLatest(dataset) {
-	$('#tag').html(dataset.tag + '°C');
-	$('#ty').html(dataset.ty + '°C');
-	$('#po').html(dataset.po + '°C');
-	$('#pu').html(dataset.pu + '°C');
+
+	function setValue(key) {
+		const dkey = 'd' + key;
+		const value = dataset[key];
+		$('#' + key).html(value + '°C');
+		const slope = dataset[dkey];
+		const angle = Math.atan(slope * 180) * -57.3;
+		$('#' + dkey).css({
+			'transform': 'rotate('+angle+'deg)',
+			'transform-origin': '50% 50%'
+		});
+	}
+	setValue('tag');
+	setValue('ty');
+	setValue('po');
+	setValue('pu');
+	
 	const d = new Date(0);
 	d.setUTCSeconds(dataset.time);
-	const timestring = ("0" + d.getHours()).slice(-2) + ":" + ("0" + d.getMinutes()).slice(-2) + ":" + ("0" + d.getSeconds()).slice(-2);
+	const timestring = f00(d.getHours()) + ":" + f00(d.getMinutes()) + ":" + f00(d.getSeconds());
 	$('#time').html(timestring);
 }
 

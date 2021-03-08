@@ -18,7 +18,7 @@ table {
 
 .datalabel, .datavalue {
 	font-size: 120px;
-	padding: 30px 100px;
+	padding: 30px 50px;
 }
 
 .datavalue {
@@ -29,6 +29,15 @@ table {
 	text-align: left;
 }
 
+.slope {
+	padding-top: 20px;
+}
+
 #time {
 	font-size: 99px;
+}
+
+#getapp {
+	color: #AA0077;
+	font-size: 53px;
 }
