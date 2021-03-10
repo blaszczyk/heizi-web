@@ -13,9 +13,8 @@ def md5digest(filename):
 	with open(filename, 'rb') as file:
 		return hashlib.md5(file.read()).hexdigest()
 
-os.mkdir('dist')
 distdir = 'dist/%d' % int(time.time())
-os.mkdir(distdir)
+os.makedirs(distdir)
 
 hashes = {}
 htmlfiles = []
