@@ -22,7 +22,7 @@ function onLatest(dataset) {
 		const value = dataset[key];
 		$('#' + key).html(value + '°C');
 		const slope = dataset[dkey];
-		const angle = Math.atan(slope * 180) * -57.3;
+		const angle = Math.atan(slope) * -57.3;
 		$('#' + dkey).css({
 			'transform': 'rotate('+angle+'deg)',
 			'transform-origin': '50% 50%'
