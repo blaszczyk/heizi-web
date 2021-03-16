@@ -14,6 +14,20 @@ function f00(value) {
 	return ("0" + value).slice(-2)
 }
 
+function blink() {
+	const color1 = '#FF0000';
+	const color2 = '#222222';
+	const $body = $('body');
+	if ($('#message').html()) {
+		$body.css('color', color2);
+		$body.css('background-color', color1);
+		setTimeout(() => {
+			$body.css('color', color1);
+			$body.css('background-color', color2);
+			setTimeout(blink, 1500);
+		}, 500);
+	}
+}
 
 function onLatest(dataset) {
 
@@ -34,9 +48,20 @@ function onLatest(dataset) {
 	setValue('pu');
 	
 	const d = new Date(0);
-	d.setUTCSeconds(dataset.time);
+	const maxtime = Math.max(dataset.time, dataset.tur);
+	d.setUTCSeconds(maxtime);
 	const timestring = f00(d.getHours()) + ":" + f00(d.getMinutes()) + ":" + f00(d.getSeconds());
 	$('#time').html(timestring);
+	if (dataset.message) {
+		const message = dataset.message;
+		$('#message').html(message.title);
+		if(message.level == 'ALERT') {
+			blink();
+		}
+	}
+	else {
+		$('#message').html('');
+	}
 }
 
 $(() => {
