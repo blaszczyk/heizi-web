@@ -1,5 +1,5 @@
 
-const baseurl = 'http://192.168.2.119:4321'
+const baseurl = 'http://heizi.fritz.box:4321'
 
 function requestLatest() {
   $.ajax({
