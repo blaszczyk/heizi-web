@@ -46,6 +46,7 @@ function onLatest(dataset) {
 	setValue('ty');
 	setValue('po');
 	setValue('pu');
+	$('#owm').html(dataset['owm'] + '°C');
 	
 	const d = new Date(0);
 	const maxtime = Math.max(dataset.time, dataset.tur);
