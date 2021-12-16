@@ -1,6 +1,8 @@
 
 const baseurl = 'http://heizi.fritz.box:4321'
 
+const ALL_KEYS = ['tag', 'ty', 'po', 'pu', 'owm']
+
 function requestLatest() {
   $.ajax({
 	type: 'GET',
@@ -31,22 +33,19 @@ function blink() {
 
 function onLatest(dataset) {
 
-	function setValue(key) {
-		const dkey = 'd' + key;
+	ALL_KEYS.forEach(key => {
 		const value = dataset[key];
 		$('#' + key).html(value + '°C');
-		const slope = dataset[dkey];
-		const angle = Math.atan(slope) * -57.3;
-		$('#' + dkey).css({
-			'transform': 'rotate('+angle+'deg)',
-			'transform-origin': '50% 50%'
-		});
-	}
-	setValue('tag');
-	setValue('ty');
-	setValue('po');
-	setValue('pu');
-	$('#owm').html(dataset['owm'] + '°C');
+		const dkey = 'd' + key;
+		if (dkey in dataset) {
+			const slope = dataset[dkey];
+			const angle = Math.atan(slope) * -57.3;
+			$('#' + dkey).css({
+				'transform': 'rotate('+angle+'deg)',
+				'transform-origin': '50% 50%'
+			});
+		}
+	});
 	
 	const d = new Date(0);
 	const maxtime = Math.max(dataset.time, dataset.tur);
